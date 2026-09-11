@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #f5f7fa;
+  --foreground: #000000;
+  --primary: #163c58;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Modern Enterprise Form Input Styling */
+.enterprise-input {
+  width: 100%;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: #0f172a;
+  font-size: 1rem; /* 16px minimum on mobile to prevent iOS auto-zoom */
+  outline: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (min-width: 640px) {
+  .enterprise-input {
+    font-size: 0.925rem;
+  }
+}
+
+.enterprise-input:hover {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.enterprise-input:focus {
+  background-color: #ffffff;
+  border-color: #163c58;
+  box-shadow: 0 0 0 3px rgba(22, 60, 88, 0.12);
+}
+
+.enterprise-input::placeholder {
+  color: #94a3b8;
+}
+
+/* Fallback light underline input */
+.light-underline-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid #cbd5e1;
+  padding: 0.65rem 0;
+  color: #000000;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.light-underline-input:focus {
+  border-bottom: 2px solid #163c58;
+}
+
+.light-underline-input::placeholder {
+  color: #94a3b8;
+}
+
+/* Infinite Marquee Animations for Client Showcase */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+}
+
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: marquee-reverse 38s linear infinite;
+}
+
+.animate-marquee:hover,
+.animate-marquee-reverse:hover {
+  animation-play-state: paused;
+}
