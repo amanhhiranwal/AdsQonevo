@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    // Triggers the job when Jenkins receives a push event from GitHub
+    triggers {
+        githubPush()
+    }
+
     environment {
         DEPLOY_DIR = '/var/www/Ads/Qonevo'
     }
@@ -13,6 +18,10 @@ pipeline {
         }
 
         stage('Install, Lint & Build') {
+            // Ensures execution only occurs on pushes to the main branch
+            when {
+                branch 'main'
+            }
             parallel {
                 stage('Frontend') {
                     steps {
@@ -35,15 +44,19 @@ pipeline {
         }
 
         stage('Deploy Locally') {
+            when {
+                branch 'main'
+            }
             steps {
-                // Sync new code directly to the local folder (no SSH required)
                 sh "rsync -avz --exclude='.git' ./ ${DEPLOY_DIR}/"
             }
         }
 
         stage('Restart Services') {
+            when {
+                branch 'main'
+            }
             steps {
-                // Start or Restart Backend
                 dir("${DEPLOY_DIR}/server") {
                     sh """
                     export \$(cat ${DEPLOY_DIR}/server.env | xargs) && \
@@ -51,7 +64,6 @@ pipeline {
                     """
                 }
 
-                // Start or Restart Frontend
                 dir("${DEPLOY_DIR}/client") {
                     sh """
                     export \$(cat ${DEPLOY_DIR}/client.env | xargs) && \
@@ -64,14 +76,13 @@ pipeline {
 
     post {
         always {
-            // Saves the PM2 process list so it survives server reboots
             sh 'pm2 save'
         }
         success {
-            echo "Successfully deployed panels.qonevo.in locally!"
+            echo "Successfully deployed panels.qonevo.in on push to main!"
         }
         failure {
-            echo "Pipeline failed! Check Jenkins logs for linting or build errors."
+            echo "Pipeline failed! Check Jenkins logs for details."
         }
     }
 }
