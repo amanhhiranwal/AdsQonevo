@@ -98,7 +98,7 @@ export default function LandingPage() {
     setStatusMessage(null);
 
     const apiUrl =
-      process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001";
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:3012";
 
     try {
       const response = await fetch(`${apiUrl}/api/leads`, {

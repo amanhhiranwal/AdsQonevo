@@ -6,7 +6,7 @@ require('dotenv').config();
 const { pool, initDb, getStatus } = require('./db');
 
 const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 3012;
 
 // Middlewares
 app.use(cors({

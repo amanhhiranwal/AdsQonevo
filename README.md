@@ -27,7 +27,7 @@ AdsQonevo/
 │   │       ├── layout.tsx      # Root metadata and page shell
 │   │       └── page.tsx        # "Let's connect" form & validation
 │   ├── .env.example            # Client env template
-│   ├── .env.local              # Local client env (points to backend:5001)
+│   ├── .env.local              # Local client env (points to backend:3012)
 │   └── package.json
 │
 ├── server/                     # Node.js + Express Backend
@@ -52,8 +52,8 @@ AdsQonevo/
 Copy `server/.env.example` to `server/.env` and update your PostgreSQL credentials:
 
 ```env
-PORT=5001
-CLIENT_URL=http://localhost:3000
+PORT=3012
+CLIENT_URL=http://localhost:3013
 
 # PostgreSQL Database Credentials
 DB_HOST=localhost
@@ -99,14 +99,14 @@ cd ../client && npm install
 You can run both client and server or start them separately:
 
 ```bash
-# Terminal 1: Start Express Backend (Runs on http://localhost:5001)
+# Terminal 1: Start Express Backend (Runs on http://localhost:3012)
 npm run dev:server
 
-# Terminal 2: Start Next.js Frontend (Runs on http://localhost:3000)
+# Terminal 2: Start Next.js Frontend (Runs on http://localhost:3013)
 npm run dev:client
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3013](http://localhost:3013) in your browser.
 
 ---
 
