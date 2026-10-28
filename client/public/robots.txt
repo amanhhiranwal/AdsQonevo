@@ -1,0 +1,13 @@
+User-agent: GPTBot
+allow: /
+
+User-agent: ClaudeBot
+allow: /
+
+User-agent: PerplexityBot
+allow: /
+
+User-agent: *
+Allow: /
+
+Sitemap: https://panel.qonevo.in/sitemap.xml

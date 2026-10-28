@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
+import Navbar from "@/components/NavbarAndFooter/Navbar";
+import Footer from "@/components/NavbarAndFooter/Footer";
 import {
   Loader2,
   Users,
@@ -21,6 +23,8 @@ import {
   PenTool,
   Zap,
   ArrowRight,
+  ChevronDown,
+  HelpCircle,
 } from "lucide-react";
 
 interface FormData {
@@ -37,7 +41,36 @@ const CLIENT_LOGOS = Array.from(
   (_, i) => `/clients/${String(i + 1).padStart(2, "0")}.png`
 );
 
+const FAQ_ITEMS = [
+  {
+    question: "What size interactive flat panel is best for a classroom?",
+    answer:
+      "The best interactive flat panel size depends on classroom size and viewing distance. A 65-inch panel is suitable for small classrooms, a 75-inch interactive flat panel works well for standard classrooms, and an 86-inch panel is ideal for large classrooms, lecture halls, and coaching institutes. For most school classrooms, a 75-inch interactive flat panel for education offers a comfortable balance of visibility and usability.",
+  },
+  {
+    question: "Can teachers use PowerPoint, PDF, and Google Classroom on an interactive flat panel?",
+    answer:
+      "Yes. Teachers can open, display, and annotate PowerPoint presentations and PDF files directly on an interactive flat panel. Google Classroom and other online education tools can also be accessed through the panel’s browser or supported apps, depending on the model, software compatibility, and internet connection.",
+  },
+  {
+    question: "Does Qonevo provide installation for interactive flat panels?",
+    answer:
+      "Yes. Qonevo provides installation support for interactive flat panels, including wall-mount or stand setup based on the classroom requirement. Installation coverage, mounting type, and teacher training can be confirmed while placing the order.",
+  },
+  {
+    question: "Is special training required for teachers to use an IFP?",
+    answer:
+      "No special technical training is required. Most teachers can start using an interactive flat panel for basic teaching activities such as writing, opening files, annotating, and presenting within a short time. A brief training session can help teachers use advanced features such as wireless casting, cloud saving, quizzes, and video conferencing more confidently.",
+  },
+  {
+    question: "What is an interactive flat panel for business and smart classrooms?",
+    answer:
+      "An interactive flat panel is a large 4K touchscreen display combining digital whiteboard functionality, wireless screen sharing, telepresence audio/video, and dual-OS computing (Android and Windows). It enables seamless interactive teaching in classrooms and collaborative discussions in conference rooms.",
+  },
+];
+
 export default function LandingPage() {
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
     email: "",
@@ -169,30 +202,24 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-[#f5f7fa] text-black flex flex-col relative selection:bg-[#163c58] selection:text-white w-full overflow-x-hidden">
+      {/* NAVBAR */}
+      <Navbar />
+
       {/* 1. FLOATING RIGHT TAB */}
-      <button
-        onClick={scrollToForm}
-        className="fixed right-0 top-1/2 -translate-y-1/2 z-50 bg-[#163c58] hover:bg-black text-white text-xs font-semibold px-2.5 py-4 rounded-l-lg shadow-2xl transition-all cursor-pointer flex items-center justify-center [writing-mode:vertical-rl] tracking-wider border-l border-t border-b border-[#23557a]"
+      <a
+        href="https://qonevo.in/#contact-section"
+        className="fixed right-0 top-1/2 -translate-y-1/2 z-40 bg-[#163c58] hover:bg-black text-white text-xs font-semibold px-2.5 py-4 rounded-l-lg shadow-2xl transition-all cursor-pointer flex items-center justify-center [writing-mode:vertical-rl] tracking-wider border-l border-t border-b border-[#23557a] text-decoration-none"
         title="Request a Quote"
       >
         Request a Quote
-      </button>
-
-      {/* 2. TOP HEADER (LOGO AT EXTREME LEFT CORNER) */}
-      <header className="w-full px-4 sm:px-8 lg:px-12 pt-6 pb-2 flex items-center justify-start">
-        <img
-          src="/Synergy-Qonevo-logo.webp"
-          alt="Synergy Qonevo Technologies"
-          className="h-9 sm:h-12 w-auto object-contain"
-          loading="eager"
-        />
-      </header>
+      </a>
 
       {/* 3. HERO: 2-COLUMN LAYOUT (FORM ON LEFT, HEADLINE & TEXT ON RIGHT) */}
       <section
         id="form-section"
-        className="pt-4 pb-16 px-4 sm:px-6 lg:px-12 max-w-[1440px] mx-auto w-full"
+        className="pt-4 pb-16 px-4 sm:px-6 lg:px-12 max-w-[1440px] mx-auto w-full scroll-mt-24"
       >
+        <span id="contact-section" className="block -mt-24 pt-24 invisible" />
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           {/* LEFT SIDE: THE FORM */}
           <div className="lg:col-span-6 w-full">
@@ -413,30 +440,30 @@ export default function LandingPage() {
           {/* RIGHT SIDE: TEXT & PRODUCT SHOWCASE */}
           <div className="lg:col-span-6 flex flex-col justify-center pt-2">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-black mb-2 leading-tight">
-              Intelligent Interactive Displays
+              Intelligent Interactive Display
             </h1>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-[#163c58] mb-5 leading-tight">
-              Engineered for Enterprise Collaboration
+              Engineered for Education &amp; Classroom Teaching (Enterprise Collaboration)
             </h2>
 
             <p className="text-base sm:text-lg text-slate-600 font-normal mb-8 leading-relaxed">
-              Equip your smart classrooms, schools, executive boardrooms, and modern workspaces with 4K UHD precision touch, seamless interactive collaboration, and Gravity AI™ workflow intelligence.
+              Equip your smart classrooms, schools, universities, and modern learning spaces with 4K UHD precision touch, seamless interactive whiteboard collaboration, and Gravity AI™ teaching intelligence.
             </p>
 
             {/* Hero Product Showcase in Clean White Frame */}
             <div className="relative w-full rounded-2xl overflow-hidden shadow-xl bg-white p-2 sm:p-2.5 border border-slate-200/90">
               <img
-                src="/showcase/executive_boardroom_multiscreen.png"
-                alt="Qonevo Interactive Commercial Display in Corporate Boardroom"
+                src="/showcase/classroom_interactive_display.webp"
+                alt="Qonevo intelligent interactive display for education and classroom teaching"
                 className="w-full h-auto object-cover object-center rounded-xl"
                 loading="eager"
               />
               <div className="flex flex-col sm:flex-row items-center justify-between px-3 py-2 text-xs text-slate-500 bg-white gap-2">
                 <span className="font-semibold text-black flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
-                  Live Deployment: Corporate Boardroom 4-Way Multi-Screen Split
+                  Live Deployment: Smart Classroom Interactive Digital Learning
                 </span>
-                <span className="text-slate-400">Qonevo Series 2026 Commercial Interactive Panel</span>
+                <span className="text-slate-400">Qonevo Series Interactive Flat Panel</span>
               </div>
             </div>
           </div>
@@ -677,7 +704,7 @@ export default function LandingPage() {
               <div className="relative rounded-2xl overflow-hidden shadow-lg border border-slate-200 bg-white p-2">
                 <img
                   src="/showcase/hybrid_videoconferencing_display.png"
-                  alt="Qonevo 4K Hybrid Video Conferencing in Live Conference Room"
+                  alt="Qonevo interactive flat panel with AI camera for classroom teaching"
                   className="w-full h-auto object-cover rounded-xl"
                   loading="lazy"
                 />
@@ -695,7 +722,7 @@ export default function LandingPage() {
               <div className="relative rounded-2xl overflow-hidden shadow-lg border border-slate-200 bg-white p-2">
                 <img
                   src="/showcase/interactive_whiteboard_classroom.png"
-                  alt="Qonevo Zero-Bonding Interactive Whiteboard with Mathematical Canvas"
+                  alt="Teacher writing on Qonevo interactive flat panel for classroom teaching"
                   className="w-full h-auto object-cover rounded-xl"
                   loading="lazy"
                 />
@@ -775,7 +802,7 @@ export default function LandingPage() {
               <div className="relative rounded-2xl overflow-hidden shadow-lg border border-slate-200 bg-white p-2">
                 <img
                   src="/showcase/power_saving_classroom.png"
-                  alt="Qonevo Commercial Display in Power Saving & Optical Efficiency Mode"
+                  alt="Energy-efficient Qonevo interactive flat panel for education"
                   className="w-full h-auto object-cover rounded-xl"
                   loading="lazy"
                 />
@@ -787,15 +814,15 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* Centered "Know More" Button Redirecting to Form */}
+          {/* Centered "Know More" Button Redirecting to main IFP Page */}
           <div className="mt-14 sm:mt-16 flex justify-center">
-            <button
-              onClick={scrollToForm}
-              className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 bg-[#163c58] hover:bg-black text-white text-sm font-semibold rounded-xl shadow-lg shadow-[#163c58]/20 hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer"
+            <a
+              href="https://qonevo.in/IFP"
+              className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 bg-[#163c58] hover:bg-black text-white text-sm font-semibold rounded-xl shadow-lg shadow-[#163c58]/20 hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer text-decoration-none"
             >
               <span>Know More</span>
               <ArrowRight className="w-4 h-4" />
-            </button>
+            </a>
           </div>
         </div>
       </section>
@@ -950,33 +977,82 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 7. BOTTOM FOOTER */}
-      <footer className="w-full bg-black text-white py-10 px-4 text-xs border-t border-slate-900">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
-            <div className="p-2 bg-white rounded-xl inline-block shadow-sm">
-              <img
-                src="/Synergy-Qonevo-logo.webp"
-                alt="Synergy Qonevo Technologies"
-                className="h-8 w-auto object-contain"
-                loading="lazy"
-              />
+      {/* 7. FREQUENTLY ASKED QUESTIONS */}
+      <section className="py-16 sm:py-24 bg-[#f8fafc] border-t border-slate-200/80">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section Header */}
+          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#163c58]/10 text-[#163c58] mb-4">
+              <HelpCircle className="w-3.5 h-3.5" /> Frequently Asked Questions
             </div>
-            <div>
-              <p className="font-semibold text-white">
-                Qonevo Technologies Private Limited
-              </p>
-              <p className="text-slate-400 mt-0.5">
-                B66, Sector 65, Noida, Uttar Pradesh 201301 - INDIA
-              </p>
-            </div>
+            <h3 className="text-3xl sm:text-4xl font-extrabold text-black tracking-tight mb-4">
+              Frequently Asked Questions
+            </h3>
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+              Find clear answers to key questions about Qonevo interactive flat panels for education, classroom teaching, and enterprise setup.
+            </p>
           </div>
-          <div className="text-slate-400 text-center sm:text-right">
-            <p>© 2026 Qonevo Technologies. All rights reserved.</p>
-            <p>A member of the Synergy Group</p>
+
+          {/* Accordion List */}
+          <div className="space-y-4">
+            {FAQ_ITEMS.map((faq, idx) => {
+              const isOpen = openFaq === idx;
+              return (
+                <div
+                  key={idx}
+                  className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden transition-all duration-200 hover:border-[#163c58]/40"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaq(isOpen ? null : idx)}
+                    className="w-full flex items-center justify-between p-5 sm:p-6 text-left cursor-pointer focus:outline-none transition-colors duration-150"
+                    aria-expanded={isOpen}
+                  >
+                    <span className="text-base sm:text-lg font-bold text-black pr-4">
+                      {faq.question}
+                    </span>
+                    <span
+                      className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-transform duration-200 ${
+                        isOpen
+                          ? "bg-[#163c58] text-white rotate-180"
+                          : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                      }`}
+                    >
+                      <ChevronDown className="w-4 h-4" />
+                    </span>
+                  </button>
+
+                  {isOpen && (
+                    <div className="px-5 pb-6 sm:px-6 text-sm sm:text-base text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+                      {faq.answer}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Contact prompt */}
+          <div className="mt-12 text-center p-6 sm:p-8 rounded-2xl bg-white border border-slate-200 shadow-sm">
+            <h4 className="text-base sm:text-lg font-bold text-black mb-1">
+              Have a specific institution or custom requirement?
+            </h4>
+            <p className="text-xs sm:text-sm text-slate-600 mb-4 max-w-xl mx-auto">
+              Connect directly with our education technology experts for institutional quotes, customized classroom sizing, and live product demos.
+            </p>
+            <a
+              href="#contact-section"
+              className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#163c58] hover:bg-black text-white text-xs sm:text-sm font-semibold rounded-xl shadow-md transition-all duration-200"
+            >
+              <span>Request a Consultation</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
           </div>
         </div>
-      </footer>
+      </section>
+
+      {/* FOOTER */}
+      <Footer />
     </div>
   );
 }
