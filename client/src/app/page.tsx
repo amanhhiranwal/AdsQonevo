@@ -443,7 +443,7 @@ export default function LandingPage() {
               Intelligent Interactive Display
             </h1>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-[#163c58] mb-5 leading-tight">
-              Engineered for Education &amp; Classroom Teaching (Enterprise Collaboration)
+              Engineered for Education &amp; Classroom Teaching
             </h2>
 
             <p className="text-base sm:text-lg text-slate-600 font-normal mb-8 leading-relaxed">
